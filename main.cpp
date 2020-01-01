@@ -1,23 +1,28 @@
-//
-//  main.cpp
-//  Meterics
-//
-//  Created by Taha Mian on 2019-12-29.
-//  Copyright © 2019 Taha Mian. All rights reserved.
-//
-
 #include <iostream>
-#include "template.hpp"
+#include "Classification/classification.hpp"
+#include "vector"
 
-int main(int argc, const char * argv[]) {
-    
-    // ClassificationType b = BINARY;
-    
-    // ClassificationFatory f;
-    // f.createClassification(b);
-    std::cout << "hellow world" << std::endl;
-    
+int main() {
+
+    std::vector<std::vector<int> > GT { { 1, 0 },
+                                         { 0, 0 } };
+
+    std::vector<std::vector<int> > PR { { 1, 1 },
+                                         { 1, 1 } };
+
+    InputVectors i(GT, PR);
+
+    std::vector<std::vector<int> > vec = i.getConfustionMatrix();
+
+    for (int i = 0; i < vec.size(); i++)
+    {
+        for (int j = 0; j < vec[i].size(); j++)
+        {
+            std::cout << vec[i][j];
+        }
+        std::cout << std::endl;
+    }
+
     return 0;
+
 }
-
-
