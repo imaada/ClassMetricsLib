@@ -1,5 +1,5 @@
 #include "classification.hpp"
-
+#include "vector"
 
 Classification ClassificationFatory::createClassification(ClassificationType type){
     switch(type){
@@ -17,6 +17,34 @@ Classification ClassificationFatory::createClassification(ClassificationType typ
     }
 }
 
-float BinaryClassification::accuray(){
-    return 1.0;
+float BinaryClassification::accuracy(){ 
+    return InputVectors::getConfustionMatrix();
+} 
+
+float BinaryClassification::Fmeasure(){
+
+}
+
+float BinaryClassification::Gmeasure(){
+
+}
+
+float BinaryClassification::misclassification(){
+
+}
+
+float BinaryClassification::precision(){
+
+}
+
+float BinaryClassification::prevalence(){
+
+}
+
+float BinaryClassification::recall(){
+
+}
+
+float BinaryClassification::specificity(){
+
 }

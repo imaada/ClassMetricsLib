@@ -18,9 +18,16 @@ public:
 
 class BinaryClassification : public Classification {
 
-public:
-    float accuray();
-
+public:     
+    float accuracy();
+    float misclassification();
+    float precision();
+    float recall();
+    float FPrate();
+    float specificity();
+    float prevalence();
+    float Fmeasure();
+    float Gmeasure();
 
 };
 
