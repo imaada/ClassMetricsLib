@@ -3,14 +3,14 @@
 #include "vector"
 
 int main() {
-    std::vector<std::vector<int> > GT { { 1 },
-                                         { 0 } };
+    std::vector<std::vector<int> > GT { { 1,0,0 },
+                                         { 0,0,1 } };
 
-    std::vector<std::vector<int> > PR { { 1 },
-                                         { 1 } };
+    std::vector<std::vector<int> > PR { { 1 ,0,0},
+                                         { 0 ,1,0} };
 
     InputVectors i;
-    i.setConfusionMatrix(GT, PR);
+    i.setConfusionMatrix(GT, PR); 
 
     ClassificationType b = BINARY;
 

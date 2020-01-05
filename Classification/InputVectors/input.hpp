@@ -16,6 +16,6 @@ public:
     std::vector<std::vector<int>> getConfustionMatrix();
     int getInstances();
     void setConfusionMatrix(std::vector<std::vector<int>> ground_truth, std::vector<std::vector<int>> predicted);
-private:
+//    void resizeVector(std::vector<std::vector<int>> vec, int row);
     std::vector<std::vector<int>> matrix;
 };
