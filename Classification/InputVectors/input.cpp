@@ -1,26 +1,27 @@
 #include "input.hpp"
 
-InputVectors::InputVectors(std::vector<std::vector<int>> ground_truth, std::vector<std::vector<int>> predicted){
-    std::cout << "this is a class" << std::endl;
+
+void InputVectors::setConfusionMatrix(std::vector<std::vector<int>> ground_truth, std::vector<std::vector<int>> predicted){
+
     int n = ground_truth.size();
 
     std::vector <std::vector<int>> confusionMatrix(2, std::vector<int>(n, 0));
 
-    for (int i=0; i < ground_truth[0].size();i++) {
+    for (int i=0; i < ground_truth.size();i++) {
         //TP
-        if (ground_truth[0][i] == 1 && predicted[0][i] == 1){
+        if (ground_truth[i][0] == 1 && predicted[i][0] == 1){
             confusionMatrix[0][0] +=1;
         }
         //FP
-        else if (ground_truth[0][i] == 1 && predicted[0][i]==0){
+        else if (ground_truth[i][0] == 1 && predicted[i][0]==0){
             confusionMatrix[0][1] +=1;
         }
         //FN
-        else if (ground_truth[0][i] == 0 && predicted[0][i]== 1){
+        else if (ground_truth[i][0] == 0 && predicted[i][0]== 1){
             confusionMatrix[1][0] +=1;
         }
         //TN
-        else if (ground_truth[0][i] == 0 && predicted[0][i]== 0){
+        else if (ground_truth[i][0] == 0 && predicted[i][0]== 0){
             confusionMatrix[1][1] +=1;
         }
 
@@ -33,7 +34,6 @@ InputVectors::InputVectors(std::vector<std::vector<int>> ground_truth, std::vect
     */
      
     matrix = confusionMatrix;
-
 }
 
 std::vector<std::vector<int>> InputVectors::getConfustionMatrix(){

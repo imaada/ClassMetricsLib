@@ -1,50 +1,42 @@
 #include "classification.hpp"
 #include "vector"
 
-Classification ClassificationFatory::createClassification(ClassificationType type){
-    switch(type){
-        case BINARY:{
-            BinaryClassification b;
+//Classification ClassificationFatory::createClassification(ClassificationType type, InputVectors i){
+//
+//}
 
-            return b;
-        }
+//float Classification::accuracy() {
+//    return 2.0;
+//}
 
-        default: {
-            Classification a;
-            return a;
-        }
+//float BinaryClassification::accuracy(){
+//    return 1.0;
+//}
 
-    }
-}
-
-float BinaryClassification::accuracy(){ 
-    return InputVectors::getConfustionMatrix();
-} 
-
-float BinaryClassification::Fmeasure(){
-
-}
-
-float BinaryClassification::Gmeasure(){
-
-}
-
-float BinaryClassification::misclassification(){
-
-}
-
-float BinaryClassification::precision(){
-
-}
-
-float BinaryClassification::prevalence(){
-
-}
-
-float BinaryClassification::recall(){
-
-}
-
-float BinaryClassification::specificity(){
-
-}
+//float BinaryClassification::Fmeasure(){
+//
+//}
+//
+//float BinaryClassification::Gmeasure(){
+//
+//}
+//
+//float BinaryClassification::misclassification(){
+//
+//}
+//
+//float BinaryClassification::precision(){
+//
+//}
+//
+//float BinaryClassification::prevalence(){
+//
+//}
+//
+//float BinaryClassification::recall(){
+//
+//}
+//
+//float BinaryClassification::specificity(){
+//
+//}
