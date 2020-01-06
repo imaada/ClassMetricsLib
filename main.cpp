@@ -28,9 +28,12 @@ int main() {
     ClassificationType d = MARY;
     ClassificationFatory *ef = new ClassificationFatory (d, j);
     Classification * e = ef->classification;
-    std::cout << "Accuracy for label 1 is: " << e->precisionMultiClass(1) << "%" << std::endl;
-    std::cout << "Accuracy for label 2 is: " << e->precisionMultiClass(2) << "%" << std::endl;
-    std::cout << "Accuracy for label 3 is: " << e->precisionMultiClass(3) << "%" << std::endl;
+    std::cout << "Precision for label 1 is: " << e->precisionMultiClass(1) << "%" << std::endl;
+    std::cout << "Precision for label 2 is: " << e->precisionMultiClass(2) << "%" << std::endl;
+    std::cout << "Precision for label 3 is: " << e->precisionMultiClass(3) << "%" << std::endl;
+    std::cout << "Recall for label 1 is: " << e->recallMultiClass(1) << "%" << std::endl;
+    std::cout << "Recall for label 2 is: " << e->recallMultiClass(2) << "%" << std::endl;
+    std::cout << "Recall for label 3 is: " << e->recallMultiClass(3) << "%" << std::endl;
     std::cout << "Confusion Matrix is: "<< std::endl;
     std::vector<std::vector<int> > vec2 = j.getConfustionMatrix();
 

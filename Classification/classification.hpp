@@ -32,6 +32,7 @@ public:
     virtual float Fmeasure() = 0;
     virtual float Gmeasure() = 0;
     virtual float precisionMultiClass(int pos) = 0;
+    virtual float recallMultiClass(int pos) = 0;
 };
 
 class BinaryClassification : public Classification {
@@ -94,6 +95,7 @@ public:
     };
 
     float precisionMultiClass (int pos){return 1.0;}
+    float recallMultiClass (int pos) {return 1.0;}
 
 };
 
@@ -128,9 +130,28 @@ public:
         for (int f = 0; f <matrix.size(); f++ ){
             total = total + matrix[f][pos-1];
         }
-        float m =matrix[pos-1][pos-1]/total;
-        return m*100;
+        if (total!=0){
+            float m = matrix[pos-1][pos-1]/(float) total;
+            return m*100;
+        }
+        else {
+            return 0.0;
+        }
     };
+
+    float recallMultiClass(int pos){
+        int total = 0;
+        for (int y=0; y< matrix.size(); y++){
+            total = total+ matrix[pos-1][y];
+        };
+        if (total!=0){
+            float m = matrix[pos-1][pos-1]/(float) total;
+            return m*100;
+        }
+        else {
+            return 0.0;
+        }
+    }
 
 
 
