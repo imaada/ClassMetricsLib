@@ -2,7 +2,6 @@
 #define classification_hpp
 #include <stdio.h>
 #include <math.h>
-#include "BinaryClassification.h"
 
 #endif
 
@@ -32,12 +31,109 @@ public:
     virtual float prevalence() = 0;
     virtual float Fmeasure() = 0;
     virtual float Gmeasure() = 0;
+    virtual float precisionMultiClass(int pos) = 0;
 };
 
+class BinaryClassification : public Classification {
 
+public:
+    BinaryClassification(InputVectors input) : Classification(input){
+        matrix = i.getConfustionMatrix();
+        TP =(float) matrix[0][0];
+        TN =(float) matrix[1][1];
+        FP =(float) matrix[0][1];
+        FN =(float) matrix[1][0];
+        instances = TP + TN + FP + FN;
+
+
+    }
+    float TP;
+    float TN;
+    float FP;
+    float FN;
+    std::vector<std::vector<int>>  matrix;
+    float instances;
+
+    float accuracy(){
+
+        float m = (TP + TN) / instances;
+        return m*100;
+    };
+
+    float misclassification(){
+        float m = 1- ((TP + TN) / instances);
+        return m*100;
+    };
+    float precision(){
+        float m = (TP) / (TP + FP);
+        return m*100;
+    };
+    float recall(){
+        float m = ((TP) / (TP + FN));
+        return m*100;
+    };
+    float FPrate(){
+        float m = (FP) / (TN + FP);
+        return m*100;
+    };
+    float specificity(){
+        float m = 1-((FP) / (TN + FP));
+        return m*100;
+    };
+    float prevalence(){
+        float m = (FN + TP) / (instances);
+        return m*100;
+    };
+    float Fmeasure(){
+        float m = (2*((TP) / (TP + FN))*((TP) / (TP + FP)))/(((TP) / (TP + FP))+((TP) / (TP + FN)));
+        return m*100;
+    };
+    float Gmeasure(){
+        float m = sqrt(((TP) / (TP + FN))*((TP) / (TP + FP)));
+        return m*100;
+    };
+
+    float precisionMultiClass (int pos){return 1.0;}
+
+};
 
 class MaryClassification : public Classification {
 public:
+    MaryClassification (InputVectors input) : Classification(input){
+        matrix = i.getConfustionMatrix();
+        for (int h = 0; h < matrix.size(); h++){
+            for (int k = 0; k < matrix[0].size(); k++){
+                instances += matrix[h][k];
+            }
+        }
+
+
+    }
+    std::vector<std::vector<int>> matrix;
+    int instances;
+
+    float accuracy(){};
+    float misclassification(){};
+    float precision(){};
+    float recall(){};
+    float FPrate(){};
+    float specificity(){};
+    float prevalence(){};
+    float Fmeasure(){};
+    float Gmeasure(){};
+
+    //position is label number
+    float precisionMultiClass (int pos){
+        int total= 0;
+        for (int f = 0; f <matrix.size(); f++ ){
+            total = total + matrix[f][pos-1];
+        }
+        float m =matrix[pos-1][pos-1]/total;
+        return m*100;
+    };
+
+
+
 };
 
 
@@ -52,6 +148,11 @@ public:
                 classification = new BinaryClassification(i);
                 break;
 
+            }
+
+            case MARY:{
+                classification = new MaryClassification(i);
+                break;
             }
 
             default: {
