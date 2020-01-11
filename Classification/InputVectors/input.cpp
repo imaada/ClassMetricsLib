@@ -70,15 +70,15 @@ std::vector<std::vector<int>> InputVectors::getConfustionMatrix(){
     return matrix;
 }
 
-int InputVectors::getInstances(){
-    int num = matrix[0][0] + matrix[1][1] + matrix[0][1] + matrix[1][0];
-    return num;
-}
+//int InputVectors::getInstances(){
+//    int num = matrix[0][0] + matrix[1][1] + matrix[0][1] + matrix[1][0];
+//    return num;
+//}
 
 
 
-std::vector<std::vector<int>> InputVectors::compare(){
-
-    std::vector<std::vector<int>> a =  {{1,2}, {3,4}};
-    return a;
-}
+//std::vector<std::vector<int>> InputVectors::compare(){
+//
+//    std::vector<std::vector<int>> a =  {{1,2}, {3,4}};
+//    return a;
+//}

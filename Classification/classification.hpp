@@ -33,6 +33,23 @@ public:
     virtual float Gmeasure() = 0;
     virtual float precisionMultiClass(int pos) = 0;
     virtual float recallMultiClass(int pos) = 0;
+    virtual float F1ScoreMultiClass(int pos) = 0;
+    virtual float macroPrecision() = 0;
+    virtual float macroRecall() = 0;
+    virtual float macroF1Score() =0;
+    virtual float weightedF1() = 0;
+    virtual float weightedRecall() =0;
+    virtual float weightedPrecision() =0;
+    virtual std::vector<int> getWeights()=0;
+    virtual float microF1Score() = 0;
+    virtual float jaccardCoeff() = 0;
+    virtual float matthewsCoeff() = 0;
+    virtual float discriminantPower()=0;
+    virtual float markedness()=0;
+    virtual float balancedClassificationRate() = 0;
+    virtual float geometricMean() = 0;
+    virtual float optPrecision() = 0;
+    virtual float NPV() = 0;
 };
 
 class BinaryClassification : public Classification {
@@ -65,10 +82,12 @@ public:
         float m = 1- ((TP + TN) / instances);
         return m*100;
     };
+    //PPV
     float precision(){
         float m = (TP) / (TP + FP);
         return m*100;
     };
+    //TPR or sensitivity or hit rate
     float recall(){
         float m = ((TP) / (TP + FN));
         return m*100;
@@ -77,8 +96,9 @@ public:
         float m = (FP) / (TN + FP);
         return m*100;
     };
+    //TNR or inverse recall
     float specificity(){
-        float m = 1-((FP) / (TN + FP));
+        float m = 1-this->FPrate()/100;
         return m*100;
     };
     float prevalence(){
@@ -86,49 +106,128 @@ public:
         return m*100;
     };
     float Fmeasure(){
-        float m = (2*((TP) / (TP + FN))*((TP) / (TP + FP)))/(((TP) / (TP + FP))+((TP) / (TP + FN)));
-        return m*100;
+        float m = (2*this->recall()*this->precision())/(this->recall()+this->precision());
+        return m;
     };
     float Gmeasure(){
-        float m = sqrt(((TP) / (TP + FN))*((TP) / (TP + FP)));
-        return m*100;
+        float num = this->recall() * this->precision();
+        float m = sqrt(num);
+        return m;
+    };
+
+    float jaccardCoeff(){
+        float m;
+        m = TP/(TP + FP + FN);
+        return m ;
+    }
+    //A coefficient of 1 indicates a perfect prediction,
+    //-1 represents total disagreement between prediction and true
+    float matthewsCoeff(){
+        float num = (TP*TN) - (FP*FN);
+        float denum= sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN));
+        return num/denum;
+    }
+
+    float NPV(){
+        float n = TN/(FN+TN);
+        return n*100;
+    }
+
+    float discriminantPower(){
+        float coeff = sqrt(3)/M_PI;
+        float dp = log10((this->recall()/100)/(1-(this->specificity()/100))) + log10((this->specificity()/100)/(1-(this->recall()/100)));
+        return coeff*dp;
+    }
+
+    float markedness(){
+        float m = (this->precision()/100) + (this->NPV()/100) - 1;
+        return m;
+    }
+
+    float balancedClassificationRate(){
+        float b = ((this->recall()/100)+(this->specificity()/100))/2;
+        return b*100;
+    };
+
+    float geometricMean(){
+        float sq = sqrt((this->recall()/100)*(this->specificity()/100));
+        return sq;
+
+    };
+
+    float optPrecision(){
+        float opt = (this->accuracy()/100) - ( abs((this->recall()/100)-(this->specificity()/100)) / ((this->recall()/100)+(this->specificity()/100)) );
+        return opt*100;
     };
 
     float precisionMultiClass (int pos){return 1.0;}
     float recallMultiClass (int pos) {return 1.0;}
+    float F1ScoreMultiClass(int pos) {return 1.0;}
+    float macroPrecision() {return 1.0;}
+    float macroRecall() {return 1.0;}
+    float macroF1Score() {return 1.0;}
+    float weightedPrecision() {return 1.0;};
+    float weightedRecall(){return 1.0;};
+    float weightedF1(){return 1.0;}
 
+    std::vector<int> getWeights(){
+        std::vector<int> mo;
+        return mo;
+    }
+    float microF1Score() {return 1.0;}
 };
 
 class MaryClassification : public Classification {
 public:
     MaryClassification (InputVectors input) : Classification(input){
         matrix = i.getConfustionMatrix();
+        totalInstances =0;
+        weights.resize(matrix.size());
         for (int h = 0; h < matrix.size(); h++){
             for (int k = 0; k < matrix[0].size(); k++){
-                instances += matrix[h][k];
+                totalInstances += matrix[h][k];
+                weights[k] += matrix[h][k];
             }
         }
+//        for (int i =0; i< matrix.size(); i++){
+//
+//        }
+
 
 
     }
     std::vector<std::vector<int>> matrix;
-    int instances;
+    int totalInstances;
+    //1D vector with instances per class from GT
+    std::vector<int> weights;
 
-    float accuracy(){};
-    float misclassification(){};
-    float precision(){};
-    float recall(){};
-    float FPrate(){};
-    float specificity(){};
-    float prevalence(){};
-    float Fmeasure(){};
-    float Gmeasure(){};
+    std::vector<int> getWeights(){
+        return weights;
+    }
+
+    float accuracy(){return 1.0;};
+    float misclassification(){return 1.0;};
+    float precision(){return 1.0;};
+    float recall(){return 1.0;};
+    float FPrate(){return 1.0;};
+    float specificity(){return 1.0;};
+    float prevalence(){return 1.0;};
+    float Fmeasure(){return 1.0;};
+    float Gmeasure(){return 1.0;};
+    float jaccardCoeff(){return 1.0;};
+    float matthewsCoeff(){return 1.0;}
+    float discriminantPower(){return 1.0;}
+    float markedness(){return 1.0;}
+    float balancedClassificationRate(){return 1.0;}
+    float geometricMean(){return 1.0;}
+    float optPrecision(){return 1.0;}
+    float NPV(){return 1.0;}
 
     //position is label number
     float precisionMultiClass (int pos){
         int total= 0;
         for (int f = 0; f <matrix.size(); f++ ){
-            total = total + matrix[f][pos-1];
+            total = total + matrix[pos-1][f];
         }
         if (total!=0){
             float m = matrix[pos-1][pos-1]/(float) total;
@@ -142,7 +241,7 @@ public:
     float recallMultiClass(int pos){
         int total = 0;
         for (int y=0; y< matrix.size(); y++){
-            total = total+ matrix[pos-1][y];
+            total = total+ matrix[y][pos-1];
         };
         if (total!=0){
             float m = matrix[pos-1][pos-1]/(float) total;
@@ -153,17 +252,93 @@ public:
         }
     }
 
+    float F1ScoreMultiClass(int pos) {
+        float total = 0.0;
+        total= this->precisionMultiClass(pos) +this->recallMultiClass(pos);
+        float numerator = 2 * this->precisionMultiClass(pos) * this->recallMultiClass(pos);
+        if (total!=0.0){return numerator/total;}
+        else{return 0.0;}
+    }
+
+    float macroPrecision() {
+        float total = 0.0;
+        for (int i=1; i<=matrix.size(); i++){
+            total += this->precisionMultiClass(i);
+        }
+        return total/matrix.size();
+    }
+
+    float macroRecall() {
+        float total = 0.0;
+        for (int i =1; i <= matrix.size(); i++){
+            total+= this->recallMultiClass(i);
+        }
+        return total/matrix.size();
+    }
+
+    float macroF1Score() {
+        float total =0.0;
+        for (int zz =1; zz <= matrix.size(); zz++){
+            total += this->F1ScoreMultiClass(zz);
+        }
+        return total/matrix.size();
+    }
+
+    float weightedPrecision() {
+        float total = 0.0;
+        float num = 0.0;
+        for (int i =0; i< matrix.size(); i++){
+            total += weights[i];
+            num += weights[i] * this->precisionMultiClass(i+1);
+        }
+        if (total!=0){return num/total;}
+        else {return 0.0;}
+
+    }
+
+    float weightedRecall(){
+        float total = 0.0;
+        float num = 0.0;
+        for (int i =0; i< matrix.size(); i++){
+            total += weights[i];
+            num += weights[i] * this->recallMultiClass(i+1);
+        }
+        if (total!=0){return num/total;}
+        else {return 0.0;}
+    }
+
+    float weightedF1(){
+        float total = 0.0;
+        float num = 0.0;
+        for (int i =0; i< matrix.size(); i++){
+            total += weights[i];
+            num += weights[i] * this->F1ScoreMultiClass(i+1);
+        }
+        if (total!=0){return num/total;}
+        else {return 0.0;}
+    }
+
+    float microF1Score(){
+        float total = 0.0;
+        for (int i =0; i < matrix.size(); i++){
+            for (int j = 0; j < matrix.size(); j++){
+                if (i == j){total += matrix[i][j];}
+            }
+        }
+        return total/(float) totalInstances*100;
+    }
+
 
 
 };
 
 
-class ClassificationFatory {
+class ClassificationFactory {
 
 public:
 
 
-    ClassificationFatory(ClassificationType type, InputVectors i){
+    ClassificationFactory(ClassificationType type, InputVectors i){
         switch(type){
             case BINARY:{
                 classification = new BinaryClassification(i);
