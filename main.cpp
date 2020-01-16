@@ -3,10 +3,11 @@
 #include "vector"
 
 int main() {
+//    BINARY INPUT EXAMPLE
     std::vector<std::vector<int> > GT { { 1 },
-                                        { 0 },
-                                        { 1 },
-                                        { 1 } };
+            { 0 },
+            { 1 },
+            { 1 } };
 
     std::vector<std::vector<int> > PR { { 1 },
                                         { 1 },
@@ -73,6 +74,78 @@ int main() {
                                              { 1, 0, 0 },
                                              { 1, 0, 0} };
 
+    std::vector<std::vector<int> > GTMultiLabel {  //TPs
+            { 1, 0, 1 },
+            { 1, 0, 1 },
+            { 1, 0, 1 },
+            { 1, 0, 1 },
+            { 0, 1, 1 },
+            { 0, 1, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            //Other
+            { 1, 0, 0 },
+            { 1, 0, 0 },
+            { 0, 1, 0 },
+            { 0, 1, 0 },
+            { 0, 1, 0 },
+            { 0, 1, 0 },
+            { 0, 1, 0 },
+            { 0, 1, 0 },
+
+            { 0, 1, 0 },
+            { 0, 1, 0 },
+
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1} };
+
+    std::vector<std::vector<int> > PRMultiLabel {  //TPs
+            { 1, 0, 1 },
+            { 1, 0, 1 },
+            { 1, 0, 1 },
+            { 1, 0, 1 },
+            { 0, 1, 1 },
+            { 0, 1, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+            //Other
+            { 0, 1, 0 },
+            { 0, 0, 1 },
+            { 1, 0, 0 },
+            { 1, 0, 0 },
+            { 1, 0, 0 },
+            { 1, 0, 0 },
+            { 1, 0, 0 },
+            { 1, 0, 0 },
+
+            { 0, 0, 1 },
+            { 0, 0, 1 },
+
+            { 1, 0, 0 },
+            { 1, 0, 0 },
+            { 1, 0, 0} };
+
+    InputVectors h;
+    h.setConfusionMatrix(GTMultiLabel, PRMultiLabel);
+    ClassificationType f = MULTILABEL;
+    ClassificationFactory *gf = new ClassificationFactory (f, h);
+    Classification * g = gf ->classification;
+    std::cout << "Multi Label Test Case" << std::endl;
+    std::cout << "Hamming Loss is: " << g->hamming() << std::endl;
+    std::cout << "Subset Zero-One-Loss is: " << g->subset01() << std::endl;
+    std::cout << std::endl;
+
+    std::cout << "---------------------------------------------------------------------------------------" << std::endl;
+
     InputVectors j;
     j.setConfusionMatrix(GTMulti, PRMulti);
     ClassificationType d = MARY;
@@ -130,7 +203,7 @@ int main() {
     for (int x = 0; x < vec.size(); x++)
     {
         for (int j = 0; j < vec[x].size(); j++)
-        {
+        {   
             std::cout << vec[x][j] << " ";
         }
         std::cout << std::endl;

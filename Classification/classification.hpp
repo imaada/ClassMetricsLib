@@ -10,7 +10,7 @@
 #include <iostream>
 
 enum ClassificationType {
-    BINARY, MARY
+    BINARY, MARY, MULTILABEL
 };
 
 class Classification {
@@ -50,6 +50,9 @@ public:
     virtual float geometricMean() = 0;
     virtual float optPrecision() = 0;
     virtual float NPV() = 0;
+    virtual float hamming() = 0;
+    virtual float subset01() = 0;
+
 };
 
 class BinaryClassification : public Classification {
@@ -160,21 +163,23 @@ public:
         return opt*100;
     };
 
-    float precisionMultiClass (int pos){return 1.0;}
-    float recallMultiClass (int pos) {return 1.0;}
-    float F1ScoreMultiClass(int pos) {return 1.0;}
-    float macroPrecision() {return 1.0;}
-    float macroRecall() {return 1.0;}
-    float macroF1Score() {return 1.0;}
-    float weightedPrecision() {return 1.0;};
-    float weightedRecall(){return 1.0;};
-    float weightedF1(){return 1.0;}
+    float precisionMultiClass (int pos){return 0.0;}
+    float recallMultiClass (int pos) {return 0.0;}
+    float F1ScoreMultiClass(int pos) {return 0.0;}
+    float macroPrecision() {return 0.0;}
+    float macroRecall() {return 0.0;}
+    float macroF1Score() {return 0.0;}
+    float weightedPrecision() {return 0.0;};
+    float weightedRecall(){return 0.0;};
+    float weightedF1(){return 0.0;}
 
     std::vector<int> getWeights(){
         std::vector<int> mo;
         return mo;
     }
-    float microF1Score() {return 1.0;}
+    float microF1Score() {return 0.0;}
+    virtual float hamming() {return 0.0;}
+    virtual float subset01() {return 0.0;}
 };
 
 class MaryClassification : public Classification {
@@ -205,23 +210,25 @@ public:
         return weights;
     }
 
-    float accuracy(){return 1.0;};
-    float misclassification(){return 1.0;};
-    float precision(){return 1.0;};
-    float recall(){return 1.0;};
-    float FPrate(){return 1.0;};
-    float specificity(){return 1.0;};
-    float prevalence(){return 1.0;};
-    float Fmeasure(){return 1.0;};
-    float Gmeasure(){return 1.0;};
-    float jaccardCoeff(){return 1.0;};
-    float matthewsCoeff(){return 1.0;}
-    float discriminantPower(){return 1.0;}
-    float markedness(){return 1.0;}
-    float balancedClassificationRate(){return 1.0;}
-    float geometricMean(){return 1.0;}
-    float optPrecision(){return 1.0;}
-    float NPV(){return 1.0;}
+    float accuracy(){return 0.0;};
+    float misclassification(){return 0.0;};
+    float precision(){return 0.0;};
+    float recall(){return 0.0;};
+    float FPrate(){return 0.0;};
+    float specificity(){return 0.0;};
+    float prevalence(){return 0.0;};
+    float Fmeasure(){return 0.0;};
+    float Gmeasure(){return 0.0;};
+    float jaccardCoeff(){return 0.0;};
+    float matthewsCoeff(){return 0.0;}
+    float discriminantPower(){return 0.0;}
+    float markedness(){return 0.0;}
+    float balancedClassificationRate(){return 0.0;}
+    float geometricMean(){return 0.0;}
+    float optPrecision(){return 0.0;}
+    float NPV(){return 0.0;}
+    float hamming() {return 0.0;}
+    float subset01() {return 0.0;}
 
     //position is label number
     float precisionMultiClass (int pos){
@@ -332,6 +339,70 @@ public:
 
 };
 
+class MultiLabelClassification : public Classification {
+    public:
+        MultiLabelClassification (InputVectors i): Classification (i) {
+            groundTruth  = i.getGroundTruth();
+            predictedInput = i.getPredicted();
+        }
+
+        std::vector<std::vector<int>> groundTruth;
+        std::vector<std::vector<int>> predictedInput;
+
+    virtual float hamming() {
+        float num = 0;
+        float denum = groundTruth.size()* groundTruth[0].size();
+        for (int i = 0; i < groundTruth.size(); i++) {
+            for (int j = 0; j < groundTruth[0].size(); j++) {
+                if (groundTruth[i][j] != predictedInput[i][j]){num +=1;}
+            }
+        }
+        return num/denum;
+    }
+
+    virtual float subset01() {
+        float num = 0;
+        float denum = groundTruth.size();
+        for (int i = 0; i < groundTruth.size(); i++) {
+            if (groundTruth[i] != predictedInput[i]) { num += 1; }
+        }
+        return num/denum;
+    };
+
+    float accuracy() {return 0.0;}
+    float misclassification() {return 0.0;}
+    float precision() {return 0.0;}
+    float recall() {return 0.0;}
+    float FPrate() {return 0.0;}
+    float specificity() {return 0.0;}
+    float prevalence() {return 0.0;}
+    float Fmeasure() {return 0.0;}
+    float Gmeasure() {return 0.0;}
+    float precisionMultiClass(int pos) {return 0.0;}
+    float recallMultiClass(int pos) {return 0.0;}
+    float F1ScoreMultiClass(int pos) {return 0.0;}
+    float macroPrecision() {return 0.0;}
+    float macroRecall() {return 0.0;}
+    float macroF1Score() {return 0.0;}
+    float weightedF1() {return 0.0;}
+    float weightedRecall() {return 0.0;}
+    float weightedPrecision() {return 0.0;}
+    std::vector<int> getWeights(){
+        std::vector<int> mo;
+        return mo;
+    }
+    float microF1Score() {return 0.0;}
+    float jaccardCoeff() {return 0.0;}
+    float matthewsCoeff() {return 0.0;}
+    float discriminantPower(){return 0.0;}
+    float markedness(){return 0.0;}
+    float balancedClassificationRate() {return 0.0;}
+    float geometricMean() {return 0.0;}
+    float optPrecision() {return 0.0;}
+    float NPV(){return 0.0;}
+
+};
+
 
 class ClassificationFactory {
 
@@ -351,10 +422,11 @@ public:
                 break;
             }
 
-            default: {
-//                classification = new Classification(i);
+            case MULTILABEL:{
+                classification = new MultiLabelClassification(i);
                 break;
             }
+
         }
     };
 
