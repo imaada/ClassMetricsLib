@@ -47,7 +47,6 @@ void InputVectors::setConfusionMatrix(std::vector<std::vector<int>> ground_truth
                     for (int g = 0; g < ground_truth[0].size(); g++){
                         if(ground_truth[i][j] == predicted[i][g]){
                             confusionMatrix[g][j] += 1;
-                            break;
                         }
                     }
                 }
@@ -64,11 +63,23 @@ void InputVectors::setConfusionMatrix(std::vector<std::vector<int>> ground_truth
     */
      
     matrix = confusionMatrix;
+    groundTruth = ground_truth;
+    predictedInput = predicted;
 }
 
 std::vector<std::vector<int>> InputVectors::getConfustionMatrix(){
     return matrix;
 }
+
+std::vector<std::vector<int>> InputVectors::getGroundTruth() {
+    return groundTruth;
+}
+
+std::vector<std::vector<int>> InputVectors::getPredicted() {
+    return predictedInput;
+}
+
+
 
 //int InputVectors::getInstances(){
 //    int num = matrix[0][0] + matrix[1][1] + matrix[0][1] + matrix[1][0];
