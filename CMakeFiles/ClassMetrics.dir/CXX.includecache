@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/input.cpp
+input.hpp
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/input.hpp
+iostream
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/iostream
+
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/input.hpp
+iostream
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/iostream
+vector
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/vector
+

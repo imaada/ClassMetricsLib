@@ -2,6 +2,7 @@
 #define classification_hpp
 #include <stdio.h>
 #include <math.h>
+#include <map>
 
 #endif
 
@@ -52,6 +53,17 @@ public:
     virtual float NPV() = 0;
     virtual float hamming() = 0;
     virtual float subset01() = 0;
+    virtual float kappa() = 0;
+    virtual float falseNegativeRate() = 0;
+    virtual float adjustedFmeasure() = 0;
+    virtual float adjustedGmeasure() = 0;
+    virtual float positiveLR() = 0;
+    virtual float negativeLR() = 0;
+    virtual float youdenIndex() = 0;
+    virtual float balanceError() = 0;
+
+
+    std::map<std::string, float> getAllMetrics();
 
 };
 
@@ -78,35 +90,35 @@ public:
     float accuracy(){
 
         float m = (TP + TN) / instances;
-        return m*100;
+        return m;
     };
 
     float misclassification(){
         float m = 1- ((TP + TN) / instances);
-        return m*100;
+        return m;
     };
     //PPV
     float precision(){
         float m = (TP) / (TP + FP);
-        return m*100;
+        return m;
     };
     //TPR or sensitivity or hit rate
     float recall(){
         float m = ((TP) / (TP + FN));
-        return m*100;
+        return m;
     };
     float FPrate(){
         float m = (FP) / (TN + FP);
-        return m*100;
+        return m;
     };
     //TNR or inverse recall
     float specificity(){
-        float m = 1-this->FPrate()/100;
-        return m*100;
+        float m = 1-this->FPrate();
+        return m;
     };
     float prevalence(){
         float m = (FN + TP) / (instances);
-        return m*100;
+        return m;
     };
     float Fmeasure(){
         float m = (2*this->recall()*this->precision())/(this->recall()+this->precision());
@@ -133,34 +145,91 @@ public:
 
     float NPV(){
         float n = TN/(FN+TN);
-        return n*100;
+        return n;
     }
 
     float discriminantPower(){
         float coeff = sqrt(3)/M_PI;
-        float dp = log10((this->recall()/100)/(1-(this->specificity()/100))) + log10((this->specificity()/100)/(1-(this->recall()/100)));
+        float dp = log10((this->recall())/(1-(this->specificity()))) + log10((this->specificity())/(1-(this->recall())));
         return coeff*dp;
     }
 
     float markedness(){
-        float m = (this->precision()/100) + (this->NPV()/100) - 1;
+        float m = (this->precision()) + (this->NPV()) - 1;
         return m;
     }
 
     float balancedClassificationRate(){
-        float b = ((this->recall()/100)+(this->specificity()/100))/2;
-        return b*100;
+        float b = ((this->recall())+(this->specificity()))/2;
+        return b;
     };
 
     float geometricMean(){
-        float sq = sqrt((this->recall()/100)*(this->specificity()/100));
+        float sq = sqrt((this->recall())*(this->specificity()));
         return sq;
 
     };
 
     float optPrecision(){
-        float opt = (this->accuracy()/100) - ( abs((this->recall()/100)-(this->specificity()/100)) / ((this->recall()/100)+(this->specificity()/100)) );
-        return opt*100;
+        float opt = (this->accuracy()) - ( abs((this->recall())-(this->specificity())) / ((this->recall())+(this->specificity())) );
+        return opt;
+    };
+
+    float kappa() {
+        float agree = (TP + TN) /instances;
+        float chanceAgree1 = ((TP + FN)/ instances) * ((TP + FP)/instances);
+        float chanceAgree2 = ((TP + FP)/instances) * ((FP + TN)/instances);
+        float chanceAgree = chanceAgree1 + chanceAgree2;
+        float m = (agree - chanceAgree)/(1- chanceAgree);
+
+        return m;
+    }
+
+    float falseNegativeRate(){
+        float m = FN /(FP + TN);
+        return m;
+    };
+
+    float adjustedFmeasure() {
+//        returning f2 score and not agf
+        float agf;
+        float invPrecision = TN/(TN + FN);
+        float invRecall = TN/(TN + FP);
+        float invF = ((1.25)*(invPrecision*invRecall)) / (0.25*invPrecision + invRecall);
+        float f2 = (5*TP) / (5*TP + 4*FN + FP);
+        agf = sqrt(f2 * invF);
+        return agf;
+    };
+
+    float adjustedGmeasure() {
+
+        if (this->recall() == 0.0) {
+            return 0.0;
+        }
+        else {
+            float agm = (this->geometricMean() + this->specificity()*(FP + TN)) / (1 + FP + TN);
+            return agm;
+        }
+    };
+
+    float positiveLR() {
+        float m = (this->recall()) / (1 - this->specificity());
+        return m;
+    };
+
+    float negativeLR() {
+        float m = (1 - this->recall()) / (this->specificity());
+        return m;
+    };
+
+    float youdenIndex() {
+        float m = this->recall() + this->specificity() - 1;
+        return m;
+    };
+
+    float balanceError() {
+        float m = 1 - this->balancedClassificationRate();
+        return m;
     };
 
     float precisionMultiClass (int pos){return 0.0;}
@@ -229,6 +298,13 @@ public:
     float NPV(){return 0.0;}
     float hamming() {return 0.0;}
     float subset01() {return 0.0;}
+    float falseNegativeRate() {return 0.0;};
+    float adjustedFmeasure() {return 0.0;};
+    float adjustedGmeasure() {return 0.0;};
+    float positiveLR() {return 0.0;};
+    float negativeLR() {return 0.0;};
+    float youdenIndex() {return 0.0;};
+    float balanceError() {return 0.0;};
 
     //position is label number
     float precisionMultiClass (int pos){
@@ -335,6 +411,28 @@ public:
         return total/(float) totalInstances*100;
     }
 
+    float kappa(){
+        float TPs = 0.0;
+        for (int i=0; i < matrix.size();i++){
+            TPs += matrix[i][i];
+        }
+        float agree = TPs / (float) totalInstances;
+        float chanceAgree =0.0;
+        float agreePerLabel;
+        for (int j = 0; j <matrix.size(); j++){
+            float probA =0;
+            float probB=0;
+            for (int k = 0; k < matrix.size(); k++){
+                probA += matrix[k][j];
+                probB += matrix[j][k];
+            }
+            agreePerLabel = (probA/(float) totalInstances) * (probB/(float) totalInstances);
+            chanceAgree += agreePerLabel;
+        }
+
+        float kappa = (agree - chanceAgree)/(1-chanceAgree);
+        return kappa;
+    }
 
 
 };
@@ -400,6 +498,14 @@ class MultiLabelClassification : public Classification {
     float geometricMean() {return 0.0;}
     float optPrecision() {return 0.0;}
     float NPV(){return 0.0;}
+    float kappa() {return 0.0;}
+    float falseNegativeRate() {return 0.0;};
+    float adjustedFmeasure() {return 0.0;};
+    float adjustedGmeasure() {return 0.0;};
+    float positiveLR() {return 0.0;};
+    float negativeLR() {return 0.0;};
+    float youdenIndex() {return 0.0;};
+    float balanceError() {return 0.0;};
 
 };
 

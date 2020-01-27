@@ -187,6 +187,7 @@ int main() {
     std::cout << "Weighted Recall is: " << e->weightedRecall() << "%" << std::endl;
     std::cout << "Weighted F1 Score is: " << e->weightedF1() << "%" << std::endl;
     std::cout << "Micro F1 Score is: " << e->microF1Score() << "%" << std::endl;
+    std::cout << "Kappa Score is: " << e->kappa()  << std::endl;
     std::cout << std::endl;
 
     std::cout << "---------------------------------------------------------------------------------------" << std::endl;
@@ -225,6 +226,7 @@ int main() {
     std::cout << "Markedness is: " << c->markedness() << std::endl;
     std::cout << "Balanced Classification Rate is: " << c->balancedClassificationRate() << "%" << std::endl;
     std::cout << "Geometric Mean is: " << c->geometricMean() << std::endl;
+    std::cout << "Kappa Score is " << c->kappa() << std::endl;
 
 
     return 0;
