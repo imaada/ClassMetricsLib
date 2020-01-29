@@ -6,13 +6,19 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/input.hpp
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/main.cpp
 iostream
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/iostream
+-
+ClassificationFactory.h
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/ClassificationFactory.h
 vector
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/vector
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/vector
 
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/classification.hpp
+Classification/BinaryClassification.h
+Classification.h
+Classification/Classification.h
+
+Classification/Classification.h
 stdio.h
 -
 math.h
@@ -20,17 +26,27 @@ math.h
 map
 -
 InputVectors/input.hpp
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/InputVectors/input.hpp
+Classification/InputVectors/input.hpp
 vector
 -
 iostream
 -
 
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/main.cpp
+Classification/ClassificationFactory.h
+MultiLabelClassification.h
+Classification/MultiLabelClassification.h
+
+Classification/InputVectors/input.hpp
 iostream
--
-Classification/classification.hpp
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/classification.hpp
+Classification/InputVectors/iostream
 vector
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/vector
+Classification/InputVectors/vector
+
+Classification/MaryClassification.h
+BinaryClassification.h
+Classification/BinaryClassification.h
+
+Classification/MultiLabelClassification.h
+MaryClassification.h
+Classification/MaryClassification.h
 

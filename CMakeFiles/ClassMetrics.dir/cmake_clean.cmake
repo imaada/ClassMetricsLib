@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/ClassMetrics.dir/Classification/InputVectors/input.cpp.obj"
+  "CMakeFiles/ClassMetrics.dir/Classification/MaryClassification.cpp.obj"
+  "CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.obj"
   "libClassMetrics.a"
   "libClassMetrics.pdb"
 )
