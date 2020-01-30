@@ -1,0 +1,52 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/main.cpp
+iostream
+-
+ClassificationFactory.h
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/ClassificationFactory.h
+vector
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/vector
+
+Classification/BinaryClassification.h
+Classification.h
+Classification/Classification.h
+
+Classification/Classification.h
+stdio.h
+-
+math.h
+-
+map
+-
+InputVectors/input.hpp
+Classification/InputVectors/input.hpp
+vector
+-
+iostream
+-
+
+Classification/ClassificationFactory.h
+MultiLabelClassification.h
+Classification/MultiLabelClassification.h
+
+Classification/InputVectors/input.hpp
+iostream
+Classification/InputVectors/iostream
+vector
+Classification/InputVectors/vector
+
+Classification/MaryClassification.h
+BinaryClassification.h
+Classification/BinaryClassification.h
+
+Classification/MultiLabelClassification.h
+MaryClassification.h
+Classification/MaryClassification.h
+
