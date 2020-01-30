@@ -47,9 +47,7 @@ public:
     float prevalence() {return 0.0;}
     std::vector<float> Fmeasure() {std::vector<float> m(groundTruth[0].size()); return m;}
     std::vector<float> Gmeasure() {std::vector<float> m(groundTruth[0].size()); return m;}
-    //float precisionMultiClass(int pos) {return 0.0;}
-    //float recallMultiClass(int pos) {return 0.0;}
-    //float F1ScoreMultiClass(int pos) {return 0.0;}
+
     float macroPrecision() {return 0.0;}
     float macroRecall() {return 0.0;}
     float macroF1Score() {return 0.0;}

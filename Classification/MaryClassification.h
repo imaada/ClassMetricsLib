@@ -56,18 +56,93 @@ public:
         return acc;
     };
 
-    float misclassification(){return 0.0;};
+    float misclassification(){
+        std::vector<float> acc(1);
+        acc = this->accuracy();
+        float miss = 1 - acc[0];
+        return miss;
+    };
     float prevalence(){ return 0.0;};
 
-    std::vector<float> Gmeasure(){std::vector<float> m(matrix.size()); return m;};
+    std::vector<float> Gmeasure(){
+        std::vector<float> m(matrix.size());
+        m = this->recall();
+        std::vector<float> n(matrix.size());
+        n = this -> precision();
+        std::vector<float> gm(matrix.size());
+        for (int i =0; i < matrix.size(); i ++) {
+            gm[i] = sqrt(m[i]*n[i]);
+        }
+
+        return gm;
+    };
     float jaccardCoeff(){return 0.0;};
     float matthewsCoeff(){return 0.0;}
-    std::vector<float> discriminantPower(){std::vector<float> m(matrix.size()); return m;}
-    std::vector<float> markedness(){std::vector<float> m(matrix.size()); return m;}
-    std::vector<float> balancedClassificationRate(){std::vector<float> m(matrix.size()); return m;}
-    std::vector<float> geometricMean(){std::vector<float> m(matrix.size()); return m;}
-    std::vector<float> optPrecision(){std::vector<float> m(matrix.size()); return m;}
-    std::vector<float> NPV(){std::vector<float> m(matrix.size()); return m;}
+    std::vector<float> discriminantPower(){
+        std::vector<float> dp(matrix.size());
+        std::vector<float> m(matrix.size());
+        m = this->recall();
+        std::vector<float> n(matrix.size());
+        n = this -> specificity();
+        float coeff = sqrt(3)/M_PI;
+        for (int i = 0; i < matrix.size(); i++){
+            dp[i] = coeff*(log10((m[i])/(1-(n[i]))) + log10((n[i])/(1-(m[i]))));
+        }
+        return dp;
+    }
+    std::vector<float> markedness(){
+        std::vector<float> m(matrix.size());
+        m = this->precision();
+        std::vector<float> n(matrix.size());
+        n = this -> NPV();
+        std::vector<float> mk (matrix.size());
+        for (int i = 0; i < matrix.size(); i++) {
+            mk[i] = (m[i]) + (n[i]) - 1;
+        }
+        return mk;
+    }
+    std::vector<float> balancedClassificationRate(){
+        std::vector<float> bcr(matrix.size());
+        std::vector<float> m(matrix.size());
+        m = this->recall();
+        std::vector<float> n(matrix.size());
+        n = this -> specificity();
+        for (int i = 0; i < matrix.size(); i++){
+            bcr[i] =  ((m[i])+(n[i]))/2;
+        }
+        return bcr;
+    }
+    std::vector<float> geometricMean(){
+        std::vector<float> gm(matrix.size());
+        std::vector<float> m(matrix.size());
+        m = this->recall();
+        std::vector<float> n(matrix.size());
+        n = this -> specificity();
+        for (int i  = 0; i < matrix.size(); i++) {
+            gm[i] = sqrt((m[i]) * (n[i]));
+        }
+        return gm;
+    }
+    std::vector<float> optPrecision(){
+        std::vector<float> m(matrix.size());
+        m = this->recall();
+        std::vector<float> n(matrix.size());
+        n = this -> specificity();
+        std::vector<float> acc(1);
+        acc = this->accuracy();
+        std::vector<float> opt(matrix.size());
+        for (int i  = 0; i < matrix.size(); i++) {
+            opt[i] = (acc[0]) - (abs(m[i] - n[i]) / (m[i] + n[i]));
+        }
+        return opt;
+    }
+    std::vector<float> NPV(){
+        std::vector<float> npv(matrix.size());
+        for (int i  = 0; i < matrix.size(); i++) {
+            npv[i] = (float)TN[i] / ((float)FN[i] + (float)TN[i]);
+        }
+        return npv;
+    }
     float hamming() {return 0.0;}
     float subset01() {return 0.0;}
     float falseNegativeRate() {return 0.0;};
@@ -75,23 +150,28 @@ public:
     std::vector<float> adjustedGmeasure() {std::vector<float> m(matrix.size()); return m;};
     std::vector<float> positiveLR() {std::vector<float> m(matrix.size()); return m;};
     std::vector<float> negativeLR() {std::vector<float> m(matrix.size()); return m;};
-    std::vector<float> youdenIndex() {std::vector<float> m(matrix.size()); return m;};
-    std::vector<float> balanceError() {std::vector<float> m(matrix.size()); return m;};
+    std::vector<float> youdenIndex() {
+        std::vector<float> yi(matrix.size());
 
-    //position is label number
-//    float precisionMultiClass (int pos){
-//        int total= 0;
-//        for (int f = 0; f <matrix.size(); f++ ){
-//            total = total + matrix[pos-1][f];
-//        }
-//        if (total!=0){
-//            float m = matrix[pos-1][pos-1]/(float) total;
-//            return m*100;
-//        }
-//        else {
-//            return 0.0;
-//        }
-//    };
+        std::vector<float> sp(matrix.size());
+        sp = this -> specificity();
+        std::vector<float> rec(matrix.size());
+        rec = this->recall();
+        for (int i  = 0; i < matrix.size(); i++) {
+            yi[i] = rec[i] + sp[i] - 1;
+        }
+        return yi;
+    };
+
+    std::vector<float> balanceError() {
+        std::vector<float> be(matrix.size());
+        std::vector<float> bcr(matrix.size());
+        bcr = this -> balancedClassificationRate();
+        for (int i  = 0; i < matrix.size(); i++) {
+            be[i] = 1 - bcr[i];
+        }
+        return be;
+    };
 
     std::vector<float> recall(){
         std::vector<float> m(matrix.size());
@@ -116,28 +196,6 @@ public:
         }
         return m;
     };
-
-//    float recallMultiClass(int pos){
-//        int total = 0;
-//        for (int y=0; y< matrix.size(); y++){
-//            total = total+ matrix[y][pos-1];
-//        };
-//        if (total!=0){
-//            float m = matrix[pos-1][pos-1]/(float) total;
-//            return m*100;
-//        }
-//        else {
-//            return 0.0;
-//        }
-//    }
-
-//    float F1ScoreMultiClass(int pos) {
-//        float total = 0.0;
-//        total= this->precisionMultiClass(pos) +this->recallMultiClass(pos);
-//        float numerator = 2 * this->precisionMultiClass(pos) * this->recallMultiClass(pos);
-//        if (total!=0.0){return numerator/total;}
-//        else{return 0.0;}
-//    }
 
     float macroPrecision() {
         float total = 0.0;

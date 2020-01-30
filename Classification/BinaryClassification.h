@@ -252,9 +252,6 @@ public:
         return m;
     }
 
-    //float precisionMultiClass (int pos){return 0.0;}
-    //float recallMultiClass (int pos) {return 0.0;}
-    //float F1ScoreMultiClass(int pos) {return 0.0;}
     float macroPrecision() {return 0.0;}
     float macroRecall() {return 0.0;}
     float macroF1Score() {return 0.0;}

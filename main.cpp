@@ -180,16 +180,7 @@ int main() {
     }
     std::cout << std::endl;
 
-//    std::cout << "Precision for label 1 is: " << e->precisionMultiClass(1) << "%" << std::endl;
-//    std::cout << "Precision for label 2 is: " << e->precisionMultiClass(2) << "%" << std::endl;
-//    std::cout << "Precision for label 3 is: " << e->precisionMultiClass(3) << "%" << std::endl;
-//    std::cout << "Recall for label 1 is: " << e->recallMultiClass(1) << "%" << std::endl;
-//    std::cout << "Recall for label 2 is: " << e->recallMultiClass(2) << "%" << std::endl;
-//    std::cout << "Recall for label 3 is: " << e->recallMultiClass(3) << "%" << std::endl;
-//    std::cout << "F1 Score for label 1 is " << e->F1ScoreMultiClass(1) << "%" << std::endl;
-//    std::cout << "F1 Score for label 2 is " << e->F1ScoreMultiClass(2) << "%" << std::endl;
-//    std::cout << "F1 Score for label 3 is " << e->F1ScoreMultiClass(3) << "%" << std::endl;
-
+    std::cout << "Misclassification is: " << e->misclassification() << std::endl;
 
     std::cout << "Macro F1 Score is: " << e->macroF1Score() << std::endl;
     std::cout << "Macro Recall is: " << e->macroRecall() << std::endl;
@@ -198,28 +189,69 @@ int main() {
     std::cout << "Weighted Recall is: " << e->weightedRecall()  << std::endl;
     std::cout << "Weighted F1 Score is: " << e->weightedF1() << std::endl;
 
-    std::cout << "Recall per class is: ";
+    std::cout << "Negative Predictive Value per class is: " << std::endl;
+    std::vector<float> npv1 = e->NPV();
+    for (int x=0; x <npv1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< npv1[x]  << std::endl;}
+
+    std::cout << "Recall per class is: " << std::endl;
     std::vector<float> rec1 = e->recall();
-    for (int x=0; x <rec1.size();x++){std::cout << rec1[x] << " ";}
-    std::cout << std::endl;
+    for (int x=0; x <rec1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< rec1[x]  << std::endl;}
 
-    std::cout << "Precision per class is: ";
+    std::cout << "Precision per class is: "<<std::endl;
     std::vector<float> pr1 = e->precision();
-    for (int x=0; x <pr1.size();x++){std::cout << pr1[x] << " ";}
-    std::cout << std::endl;
+    for (int x=0; x <pr1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< pr1[x]  << std::endl;}
 
-    std::cout << "F1 Score per class is: ";
+    std::cout << "F1 Score per class is: "<<std::endl;
     std::vector<float> f1 = e->Fmeasure();
-    for (int x=0; x <f1.size();x++){std::cout << f1[x] << " ";}
-    std::cout << std::endl;
+    for (int x=0; x <f1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< f1[x]  << std::endl;}
 
     std::cout << "Micro F1 Score is: " << e->microF1Score() << std::endl;
+
+    std::cout << "G-Measure per class is: "<< std::endl;
+    std::vector<float> gm1 = e->Gmeasure();
+    for (int x=0; x <gm1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< gm1[x]  << std::endl;}
+
+    std::cout << "Discriminant Power per class is: "<< std::endl;
+    std::vector<float> dp1 = e->discriminantPower();
+    for (int x=0; x <dp1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< dp1[x]  << std::endl;}
+
+    std::cout << "Markedness per class is: "<< std::endl;
+    std::vector<float> mk1 = e->markedness();
+    for (int x=0; x <mk1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< mk1[x]  << std::endl;}
+
+    std::cout << "Balanced Classification Rate per class is: "<< std::endl;
+    std::vector<float> bcr1 = e->balancedClassificationRate();
+    for (int x=0; x <bcr1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< bcr1[x]  << std::endl;}
+
+    std::cout << "Balanced Error per class is: "<< std::endl;
+    std::vector<float> be1 = e->balanceError();
+    for (int x=0; x <be1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< be1[x]  << std::endl;}
+
+    std::cout << "Geometric Mean per class is: "<< std::endl;
+    std::vector<float> gmean = e->geometricMean();
+    for (int x=0; x <gmean.size();x++){ std::cout << "Class #"<< x+1 << ": "<< gmean[x]  << std::endl;}
+
+    std::cout << " Optimal Precision per class is: "<< std::endl;
+    std::vector<float> opt = e->optPrecision();
+    for (int x=0; x <opt.size();x++){ std::cout << "Class #"<< x+1 << ": "<< opt[x]  << std::endl;}
+
     std::cout << "Kappa Score is: " << e->kappa()  << std::endl;
 
-    std::cout << "Diagnostic Odds Ratio per class is: ";
+    std::cout << "Diagnostic Odds Ratio per class is: "<< std::endl;
     std::vector<float> dor = e->DOR();
     for (int x=0; x <dor.size();x++){ std::cout << "Class #"<< x+1 << ": "<< dor[x]  << std::endl;}
-//    std::cout << std::endl;
+
+    std::cout << "Specificity per class is: "<< std::endl;
+    std::vector<float> sp1 = e->specificity();
+    for (int x=0; x <sp1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< sp1[x]  << std::endl;}
+
+    std::cout << "False Positive Rate per class is: "<< std::endl;
+    std::vector<float> fpr1 = e->FPrate();
+    for (int x=0; x <fpr1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< fpr1[x]  << std::endl;}
+
+    std::cout << "Youden's Index per class is: "<< std::endl;
+    std::vector<float> yi1 = e->youdenIndex();
+    for (int x=0; x <yi1.size();x++){ std::cout << "Class #"<< x+1 << ": "<< yi1[x]  << std::endl;}
 
     std::cout << std::endl;
 
