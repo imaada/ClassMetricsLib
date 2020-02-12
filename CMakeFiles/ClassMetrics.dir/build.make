@@ -98,11 +98,26 @@ CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.s: cmake
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.s"
 	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\i_maa\Documents\MASC\Class Metrics Library\ClassMetricsLib\Classification\MultiLabelClassification.cpp" -o CMakeFiles\ClassMetrics.dir\Classification\MultiLabelClassification.cpp.s
 
+CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj: CMakeFiles/ClassMetrics.dir/flags.make
+CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj: CMakeFiles/ClassMetrics.dir/includes_CXX.rsp
+CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj: Classification/BinaryClassification.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="C:\Users\i_maa\Documents\MASC\Class Metrics Library\ClassMetricsLib\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\ClassMetrics.dir\Classification\BinaryClassification.cpp.obj -c "C:\Users\i_maa\Documents\MASC\Class Metrics Library\ClassMetricsLib\Classification\BinaryClassification.cpp"
+
+CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.i"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\i_maa\Documents\MASC\Class Metrics Library\ClassMetricsLib\Classification\BinaryClassification.cpp" > CMakeFiles\ClassMetrics.dir\Classification\BinaryClassification.cpp.i
+
+CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.s"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\i_maa\Documents\MASC\Class Metrics Library\ClassMetricsLib\Classification\BinaryClassification.cpp" -o CMakeFiles\ClassMetrics.dir\Classification\BinaryClassification.cpp.s
+
 # Object files for target ClassMetrics
 ClassMetrics_OBJECTS = \
 "CMakeFiles/ClassMetrics.dir/Classification/InputVectors/input.cpp.obj" \
 "CMakeFiles/ClassMetrics.dir/Classification/MaryClassification.cpp.obj" \
-"CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.obj"
+"CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.obj" \
+"CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj"
 
 # External object files for target ClassMetrics
 ClassMetrics_EXTERNAL_OBJECTS =
@@ -110,9 +125,10 @@ ClassMetrics_EXTERNAL_OBJECTS =
 libClassMetrics.a: CMakeFiles/ClassMetrics.dir/Classification/InputVectors/input.cpp.obj
 libClassMetrics.a: CMakeFiles/ClassMetrics.dir/Classification/MaryClassification.cpp.obj
 libClassMetrics.a: CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.obj
+libClassMetrics.a: CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj
 libClassMetrics.a: CMakeFiles/ClassMetrics.dir/build.make
 libClassMetrics.a: CMakeFiles/ClassMetrics.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\i_maa\Documents\MASC\Class Metrics Library\ClassMetricsLib\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libClassMetrics.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="C:\Users\i_maa\Documents\MASC\Class Metrics Library\ClassMetricsLib\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libClassMetrics.a"
 	$(CMAKE_COMMAND) -P CMakeFiles\ClassMetrics.dir\cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\ClassMetrics.dir\link.txt --verbose=$(VERBOSE)
 

@@ -6,13 +6,17 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/main.cpp
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/CallMainInMain.h
 iostream
 -
 ClassificationFactory.h
 C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/ClassificationFactory.h
 vector
 C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/vector
+
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/main.cpp
+CallMainInMain.h
+C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/CallMainInMain.h
 
 Classification/BinaryClassification.h
 Classification.h

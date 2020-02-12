@@ -1,0 +1,132 @@
+@startuml
+
+InputVectors : + vector<vector<int>> getConfustionMatrix()
+InputVectors : + void setConfustionMatrix(vector [vector<vector<int>>, vector<vector<int>>)
+InputVectors : - vector<vector<int>> matrix
+InputVectors : - vector<vector<int>> groundTruth
+InputVectors : - vector<vector<int>> predictedInput
+
+
+Classification : - InputVectors i
+Classification : +  Classification(InputVectors i)
+
+
+ClassifactionFactory : + ClassifactionFactory(ClassificationType type, InputVectors i)
+ClassifactionFactory : - Classification *classification
+
+Classification <|-- BinaryClassification
+BinaryClassification : - float TP;
+BinaryClassification : - float TN;
+BinaryClassification : - float FP;
+BinaryClassification : - float FN;
+BinaryClassification : - vector<vector<int>> matrix;
+BinaryClassification : - float instances;
+BinaryClassification : + BinaryClassification(InputVectors i)
+BinaryClassification : + vector <float> accuracy();
+BinaryClassification : + vector<float> precision();
+BinaryClassification : + vector<float> recall();
+BinaryClassification : + vector<float> FPrate();
+BinaryClassification : + vector<float> specificity();
+BinaryClassification : + vector<float> Fmeasure();
+BinaryClassification : + vector<float> Gmeasure();
+BinaryClassification : + vector<float> discriminantPower();
+BinaryClassification : + vector<float> markedness();
+BinaryClassification : + vector<float> balancedClassificationRate();
+BinaryClassification : + vector<float> geometricMean();
+BinaryClassification : + vector<float> optPrecision();
+BinaryClassification : + vector<float> NPV();
+BinaryClassification : + vector<float> adjustedFmeasure();
+BinaryClassification : + vector<float> adjustedGmeasure();
+BinaryClassification : + vector<float> positiveLR();
+BinaryClassification : + vector<float> negativeLR();
+BinaryClassification : + vector<float> youdenIndex();
+BinaryClassification : + vector<float> balanceError();
+BinaryClassification : + vector<float> DOR();
+BinaryClassification : + float prevalence();
+BinaryClassification : + float misclassification();
+BinaryClassification : + float kappa();
+BinaryClassification : + float falseNegativeRate();
+BinaryClassification : + float jaccardCoeff();
+BinaryClassification : + float matthewsCoeff();
+
+Classification <|-- MaryClassification
+MaryClassification : - vector<std::vector<int>> matrix
+MaryClassification : - int totalInstances
+MaryClassification : - vector<int> weights
+MaryClassification : - vector<int> FN
+MaryClassification : - vector<int> FP
+MaryClassification : - vector<int> TP
+MaryClassification : - vector<int> TN
+MaryClassification : + MaryClassification (InputVectors i)
+MaryClassification : + vector <float> accuracy();
+MaryClassification : + vector<float> precision();
+MaryClassification : + vector<float> recall();
+MaryClassification : + vector<float> FPrate();
+MaryClassification : + vector<float> specificity();
+MaryClassification : + vector<float> Fmeasure();
+MaryClassification : + vector<float> Gmeasure();
+MaryClassification : + vector<float> discriminantPower();
+MaryClassification : + vector<float> markedness();
+MaryClassification : + vector<float> balancedClassificationRate();
+MaryClassification : + vector<float> geometricMean();
+MaryClassification : + vector<float> optPrecision();
+MaryClassification : + vector<float> NPV();
+MaryClassification : + vector<float> youdenIndex();
+MaryClassification : + vector<float> balanceError();
+MaryClassification : + vector<float> DOR();
+MaryClassification : + float misclassification();
+MaryClassification : + float kappa();
+MaryClassification : + float microF1Score();
+MaryClassification : + float macroPrecision();
+MaryClassification : + float macroRecall();
+MaryClassification : + float macroF1Score();
+MaryClassification : + float weightedF1();
+MaryClassification : + float weightedRecall();
+MaryClassification : + float weightedPrecision();
+
+
+Classification <|-- MultiLabelClassification
+MultiLabelClassification : - vector<std::vector<int>> groundTruth
+MultiLabelClassification : - vector<std::vector<int>> predicted
+MultiLabelClassification : + MultiLabelClassification (InputVectors i)
+MultiLabelClassification : + float subset01()
+MultiLabelClassification : + float hamming()
+
+Classification : + vector <float> accuracy();
+Classification : + vector<float> precision();
+Classification : + vector<float> recall();
+Classification : + vector<float> FPrate();
+Classification : + vector<float> specificity();
+Classification : + vector<float> Fmeasure();
+Classification : + vector<float> Gmeasure();
+Classification : + vector<float> discriminantPower();
+Classification : + vector<float> markedness();
+Classification : + vector<float> balancedClassificationRate();
+Classification : + vector<float> geometricMean();
+Classification : + vector<float> optPrecision();
+Classification : + vector<float> NPV();
+Classification : + vector<float> adjustedFmeasure();
+Classification : + vector<float> adjustedGmeasure();
+Classification : + vector<float> positiveLR();
+Classification : + vector<float> negativeLR();
+Classification : + vector<float> youdenIndex();
+Classification : + vector<float> balanceError();
+Classification : + vector<float> DOR();
+Classification : + float prevalence();
+Classification : + float misclassification();
+Classification : + float hamming();
+Classification : + float subset01();
+Classification : + float kappa();
+Classification : + float falseNegativeRate();
+Classification : + float microF1Score();
+Classification : + float jaccardCoeff();
+Classification : + float matthewsCoeff();
+Classification : + float macroPrecision();
+Classification : + float macroRecall();
+Classification : + float macroF1Score();
+Classification : + float weightedF1();
+Classification : + float weightedRecall();
+Classification : + float weightedPrecision();
+
+
+@enduml

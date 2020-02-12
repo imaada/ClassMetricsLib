@@ -102,6 +102,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/CallMainInMain.h">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/BinaryClassification.cpp">
+			<Option target="ClassMetrics"/>
+		</Unit>
 		<Unit filename="C:/Users/i_maa/Documents/MASC/Class Metrics Library/ClassMetricsLib/Classification/BinaryClassification.h">
 			<Option target="ClassMetrics"/>
 		</Unit>

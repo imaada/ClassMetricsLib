@@ -1,2 +1,2 @@
-C:\MinGW\bin\ar.exe qc libClassMetrics.a  CMakeFiles/ClassMetrics.dir/Classification/InputVectors/input.cpp.obj CMakeFiles/ClassMetrics.dir/Classification/MaryClassification.cpp.obj CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.obj
+C:\MinGW\bin\ar.exe qc libClassMetrics.a  CMakeFiles/ClassMetrics.dir/Classification/InputVectors/input.cpp.obj CMakeFiles/ClassMetrics.dir/Classification/MaryClassification.cpp.obj CMakeFiles/ClassMetrics.dir/Classification/MultiLabelClassification.cpp.obj CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj
 C:\MinGW\bin\ranlib.exe libClassMetrics.a

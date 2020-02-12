@@ -135,6 +135,33 @@ ClassMetrics/fast:
 	$(MAKE) -f CMakeFiles\ClassMetrics.dir\build.make CMakeFiles/ClassMetrics.dir/build
 .PHONY : ClassMetrics/fast
 
+Classification/BinaryClassification.obj: Classification/BinaryClassification.cpp.obj
+
+.PHONY : Classification/BinaryClassification.obj
+
+# target to build an object file
+Classification/BinaryClassification.cpp.obj:
+	$(MAKE) -f CMakeFiles\ClassMetrics.dir\build.make CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.obj
+.PHONY : Classification/BinaryClassification.cpp.obj
+
+Classification/BinaryClassification.i: Classification/BinaryClassification.cpp.i
+
+.PHONY : Classification/BinaryClassification.i
+
+# target to preprocess a source file
+Classification/BinaryClassification.cpp.i:
+	$(MAKE) -f CMakeFiles\ClassMetrics.dir\build.make CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.i
+.PHONY : Classification/BinaryClassification.cpp.i
+
+Classification/BinaryClassification.s: Classification/BinaryClassification.cpp.s
+
+.PHONY : Classification/BinaryClassification.s
+
+# target to generate assembly for a file
+Classification/BinaryClassification.cpp.s:
+	$(MAKE) -f CMakeFiles\ClassMetrics.dir\build.make CMakeFiles/ClassMetrics.dir/Classification/BinaryClassification.cpp.s
+.PHONY : Classification/BinaryClassification.cpp.s
+
 Classification/InputVectors/input.obj: Classification/InputVectors/input.cpp.obj
 
 .PHONY : Classification/InputVectors/input.obj
@@ -253,6 +280,9 @@ help:
 	@echo ... main
 	@echo ... ClassMetrics
 	@echo ... rebuild_cache
+	@echo ... Classification/BinaryClassification.obj
+	@echo ... Classification/BinaryClassification.i
+	@echo ... Classification/BinaryClassification.s
 	@echo ... Classification/InputVectors/input.obj
 	@echo ... Classification/InputVectors/input.i
 	@echo ... Classification/InputVectors/input.s
